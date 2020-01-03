@@ -25,19 +25,16 @@ func main() {
 
 	t := time.Now()
 
-	for i:=0;i<10000;i++ {
-		err = ch.Publish(
-			"order_exchange", //exchange fanout
-			"",               // routing key
-			false,            // mandatory
-			false,            // immediate
-			amqp.Publishing{
-				DeliveryMode: 2,
-				ContentType:  "text/plain",
-				Body:         []byte(body),
-			})
-	}
-
+	err = ch.Publish(
+		"order_exchange", // exchange fanout
+		"",                    // routing key
+		false,            // mandatory
+		false,            // immediate
+		amqp.Publishing{
+			DeliveryMode: 2,
+			ContentType:  "text/plain",
+			Body:         []byte(body),
+		})
 	elapsed := time.Since(t)
 	failOnError(err, "Failed to publish a message")
 	log.Println("[x] Send Second:",elapsed)

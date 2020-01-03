@@ -24,19 +24,19 @@ func main() {
 	msgs, err := ch.Consume(
 		"order_phone", // queue
 		"",     // consumer
-		true,   // auto-ack
+		false,   // auto-ack
 		false,  // exclusive
 		false,  // no-local
 		false,  // no-wait
 		nil,    // args
 	)
 	failOnError(err, "Failed to register a consumer")
-
 	forever := make(chan bool)
 
 	go func() {
 		for d := range msgs {
 			log.Printf(" [x] %s", d.Body)
+		    d.Ack(true)
 		}
 	}()
 
