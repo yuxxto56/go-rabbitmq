@@ -28,7 +28,7 @@ func main() {
 
 	t := time.Now()
 	err = ch.Publish(
-	"log_exchange",   //exchange fanout
+	"order_exchange",   //exchange fanout
 	"",                    // routing key
 	false,            // mandatory
 	false,            // immediate
